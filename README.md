@@ -1,77 +1,85 @@
-# Predict Customer Churn using Random Forest Classification
+# Customer Segmentation using K-means clustering
 
-Customer retention is one of the primary growth pillars for products with a returning customers and subscription models.
+One of the key challenges that marketing teams must solve is allocating their resources in a way that minimizes “cost per acquisition” (CPA) and increases return on investment. This is possible through segmentation, the process of dividing customers into different groups based on their behavior or characteristics.
 
-Customer churn (or customer attrition) is a tendency of customers to abandon a brand and stop being a paying client of a particular business. The percentage of customers that discontinue using a company’s products or services during a particular time period is called a customer churn (attrition) rate. 
+Customer segmentation can help reduce waste in marketing campaigns. If you know which customers are similar to each other, you’ll be better positioned to target your campaigns at the right people.
 
-Churn rate is a health indicator for businesses whose customers are subscribers and paying for services on a recurring basis
-
+Customer segmentation can also help in other marketing tasks such as product recommendations, pricing, and up-selling strategies.
 
 # Data Source and Preperation
 
-Dataset is Telecommunication Churn from Kaggle Dataset 
+Dataset is data-visualization-clustering-mall-data from Kaggle Dataset 
 
-The training dataset contains 4250 samples. Each sample contains 19 features and 1 boolean variable "churn" which indicates the class of the sample. The 19 input features and 1 target variable
+You are owing a supermarket mall and through membership cards , you have some basic data about your customers like Customer ID, age, gender, annual income and spending score.
+Spending Score is something you assign to the customer based on your defined parameters like customer behavior and purchasing data.
 
 In Data cleaning and preparation, We clean the dataset and we handle the categorical variables into machine learning format (Check the Jupyter notebook)
 
 ## Exploratory Data Analysis
 
 
-## 1. No of Users per churn (If the churn number is 1 the customer has discontinued)
+## 1. Male and Female Distribution
 
-![image](Images/chrun_count_plot.png)
+![image](Images/malefemale.png)
 
-## 2. Number of Customer Service Calls made per churn
+## 2. Spending Score Distribution by gender and age range
 
-![image](Images/number_customer_service_calls_churn_rate.png)
+![image](Images/spending_score_age_and_gender.png)
 
-## 3. Churn Rate per state in the US
+## 3. Age and Gender distribution
 
-![image](Images/state_chrun_plot.png)
+![image](Images/ageandgender.png)
 
-## 4. Total Daily calls and how it affects churn rate
+## 4. Numeric Variabilty Distribution
 
-![image](Images/total_daily_calls_and_churn_rate.png)
+![image](Images/Numeric_Variable_distribution.png)
 
-## 5. Total Evening Calls and how it affects churn rate
+## 5. How are numeric variables related to each other
 
-![image](Images/total_eve_call_and_churn_rate.png)
+![image](Images/numeric_value_relation.png)
 
 
-## Data Cleaning and Preprocessing
+## 6. Annual income and spending score
 
-## 1. Check for missing values
+![image](Images/annualincomeandspendingscore.png)
 
-Make there is no missing date using train.isnull().sum()
 
-## 2. Deleting highly corelated variables
 
-We check for highly corelated variables using corr() function and delete variables which are highly corelated with other variables
 
-## 3. Handling Categorical Variables
+# Clustering the data
 
-We handle categorical features like area code using map function 
+1. We use "from sklearn.preprocessing import StandardScaler" to normalize the all the values 
 
-# Building a churn prediction model
+2. We use Silhouette score. 
 
-## 1. Feature Scaling 
+## Silhouette score concepts: 
 
-We use "from sklearn.preprocessing import StandardScaler" to normalize the all the values 
+Silhouette score for a set of sample data points is used to measure how dense and well-separated the clusters are.
+Silhouette score takes into consideration the intra-cluster distance between the sample and other data points within the same cluster (a) and inter-cluster distance between the sample and the next nearest cluster (b).
+The silhouette score falls within the range [-1, 1].
+The silhouette score of 1 means that the clusters are very dense and nicely separated. The score of 0 means that clusters are overlapping. The score of less than 0 means that data belonging to clusters may be wrong/incorrect.
+The silhouette plots can be used to select the most optimal value of the K (no. of cluster) in K-means clustering.
+The aspects to look out for in Silhouette plots are cluster scores below the average silhouette score, wide fluctuations in the size of the clusters, and also the thickness of the silhouette plot.
 
-## 2. We split the dataset into train and test
+## Cluster Selection: Silhouette Score
 
-## 3. Random Forest Regressor Model
+![image](Images/clusterselectionsilhouttescore.png)
 
-We fit the model using from sklearn.ensemble import RandomForestRegressor with random state 42 for reproducability
+3. We cluster into 6 clusters
 
-## 4. Fine Tune Model
+# Exploring our Clusters
 
-We fine tune the model using GridSearchCV by using different parameters
+## 1. Gender Distribution by Cluster
 
-## 5. Predict
+![image](Images/gender_distribution_by_cluster.png)
 
-We use predict function to find the accuracy of the model
+## 2. Clusters "Least" & "Most" Valuable
+
+![image](Images/Valuable_and_least_valuable_clusters.png)
+
+## 3. Main Cluster visualization
+
+![image](Images/main cluster vizualization.png)
 
 # License
 This code pattern is licensed under the Apache Software License, Version 2.  Separate third party code objects invoked within this code pattern are licensed by their respective providers pursuant to their own separate licenses. Contributions are subject to the [Developer Certificate of Origin, Version 1.1 (DCO)](https://developercertificate.org/) and the [Apache Software License, Version 2](https://www.apache.org/licenses/LICENSE-2.0.txt).
